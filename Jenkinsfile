@@ -12,7 +12,7 @@ pipeline {
 
             agent {
               docker {
-                image: 'node:18-alpine'
+                image 'node:18-alpine'
               }
             }
 
@@ -40,7 +40,7 @@ pipeline {
 
             agent {
               docker {
-                image: 'docker:latest'
+                image 'docker:latest'
               }
             }
 
