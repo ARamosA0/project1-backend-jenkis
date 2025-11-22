@@ -2,7 +2,7 @@ pipeline {
 
     agent none
 
-    enviroment {
+    environment {
       DOCKERHUB_CREDENTIALS = credentials('c274a25c-2d8a-468c-92c2-f9815df69b19')
       DOCKERHUB_BACKEND_REPOSITORY = 'aldorama/proyecto1-backend-jenkins'
     }
