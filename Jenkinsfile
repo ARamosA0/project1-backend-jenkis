@@ -8,46 +8,44 @@ pipeline {
     }
   
     stages {
-        stage('Instaler dependencias de backend ...') {
-
+        stage('Instalar dependencias de backend...') {
             agent {
-              docker {
-                image 'node:18-alpine'
-              }
+                docker {
+                    image 'node:18-alpine'
+                }
             }
-
+        
             steps {
-                echo "Instalando dependencias de node"
-                sh "npm install"
+                echo 'Instalando dependencias de nodejs'
+                sh 'npm install'
             }
         }
 
-        stage('Ejecutar pruebas unitarias ...') {
-
+        stage('Ejecutar pruebas unitarias') {
             agent {
-              docker {
-                image 'node:18-alpine'
-              }
+                docker {
+                    image 'node:18-alpine'
+                }
             }
-
+        
             steps {
-                echo "Ejecutando test"
-                sh "npm run test"
+                echo 'Ejecutando tests'
+                sh 'npm run test'
             }
         }
 
-        stage('Publicar imagenes en DockerHub ...') {
-
+        stage('Publicar imagen en Dockerhub') {
             agent {
-              docker {
-                image 'docker:latest'
-              }
+                docker {
+                    image 'docker:latest'
+                }
             }
-
+        
             steps {
-                echo "Setear credenciales de dockerhub y pushear ..."
+                echo 'Setear credenciales de dockerhub y pushear...'
+                
                 sh '''
-                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin 
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                 docker build -t $DOCKERHUB_BACKEND_REPOSITORY:latest .
                 docker push $DOCKERHUB_BACKEND_REPOSITORY:latest
                 docker logout
